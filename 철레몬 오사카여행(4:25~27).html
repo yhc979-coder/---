@@ -46,6 +46,8 @@
     .tab-btn.osaka.active, .tab-btn.osaka:hover  { background: #c0392b; box-shadow: 0 4px 16px rgba(192,57,43,0.3); }
     .tab-btn.kyoto.active, .tab-btn.kyoto:hover  { background: #8e44ad; color: white; border-color: #8e44ad; box-shadow: 0 4px 16px rgba(142,68,173,0.3); }
     .tab-btn.map.active,   .tab-btn.map:hover    { background: #27ae60; color: white; border-color: #27ae60; box-shadow: 0 4px 16px rgba(39,174,96,0.3); }
+    .tab-btn.stay { background: #fff; color: #555; border: 2px solid #ddd; }
+    .tab-btn.stay.active, .tab-btn.stay:hover  { background: #2980b9; color: white; border-color: #2980b9; box-shadow: 0 4px 16px rgba(41,128,185,0.3); }
 
     .day-section { display: none; padding: 30px 20px 60px; max-width: 960px; margin: 0 auto; }
     .day-section.active { display: block; }
@@ -220,6 +222,7 @@
   <button class="tab-btn osaka active" onclick="showDay('osaka')">🏯 1일차 · 오사카</button>
   <button class="tab-btn kyoto"        onclick="showDay('kyoto')">⛩️ 2일차 · 교토</button>
   <button class="tab-btn map"          onclick="showDay('map')">🗺️ 이동경로 지도</button>
+  <button class="tab-btn stay"         onclick="showDay('stay')">🏨 숙소예약</button>
 </div>
 
 <!-- ========== OSAKA ========== -->
@@ -399,6 +402,15 @@
 </div>
 
 <!-- ========== MAP ========== -->
+<!-- 숙소예약 섹션 -->
+<div id="stay-section" style="display:none; padding: 30px 20px 60px; max-width: 960px; margin: 0 auto;">
+  <div class="day-header">
+    <div class="day-badge" style="background:#dbeeff; color:#2980b9;">🏨 숙소예약</div>
+    <h2>숙소 예약 정보</h2>
+    <p>여행 숙소 예약 내역을 여기에 추가하세요</p>
+  </div>
+</div>
+
 <div id="map-section">
   <div class="map-header">
     <div class="map-badge">🗺️ 이동경로 지도</div>
@@ -455,9 +467,13 @@
   function showDay(day) {
     document.querySelectorAll('.day-section').forEach(s => s.classList.remove('active'));
     document.getElementById('map-section').classList.remove('active');
+    document.getElementById('stay-section').classList.remove('active');
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 
-    if (day === 'map') {
+    if (day === 'stay') {
+      document.getElementById('stay-section').classList.add('active');
+      document.querySelector('.tab-btn.stay').classList.add('active');
+    } else if (day === 'map') {
       document.getElementById('map-section').classList.add('active');
       document.querySelector('.tab-btn.map').classList.add('active');
       setTimeout(initMap, 100);
